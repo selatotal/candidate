@@ -27,7 +27,7 @@ public class CandidateApi {
 
     @PutMapping("/")
     @ApiOperation(value = "Create new candidate")
-    public CandidateOutput create(@RequestBody CandidateInput voterInput){
+    public CandidateOutput create(@RequestBody CandidateInput candidateInput){
         return new CandidateOutput();
     }
 
