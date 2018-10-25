@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: CREATE_TABLE_CANDIDATE
+      author: tales.viegas
+      sqlFile:
+        path: "scripts/001.CREATE_TABLE_CANDIDATE.sql"
+        relativeToChangelogFile: true
+      rollbackFile:
+        path: "scripts/001.CREATE_TABLE_CANDIDATE.rollback.sql"
+        relativeToChangelogFile: true
