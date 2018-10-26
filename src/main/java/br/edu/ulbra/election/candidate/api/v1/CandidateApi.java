@@ -25,13 +25,13 @@ public class CandidateApi {
         return new CandidateOutput();
     }
 
-    @PutMapping("/")
+    @PostMapping("/")
     @ApiOperation(value = "Create new candidate")
     public CandidateOutput create(@RequestBody CandidateInput candidateInput){
         return new CandidateOutput();
     }
 
-    @PostMapping("/{candidateId}")
+    @PutMapping("/{candidateId}")
     @ApiOperation(value = "Update candidate")
     public CandidateOutput update(@PathVariable Long candidateId, @RequestBody CandidateInput candidateInput){
         return new CandidateOutput();
