@@ -39,7 +39,7 @@ public class CandidateService {
         validateInput(candidateInput);
         Candidate candidate = modelMapper.map(candidateInput, Candidate.class);
         candidate = candidateRepository.save(candidate);
-        return modelMapper.map(candidate, CandidateOutput.class);
+        return Candidate.toCandidateOutput(candidate);
     }
 
     public CandidateOutput getById(Long candidateId){
