@@ -8,3 +8,9 @@ databaseChangeLog:
       rollbackFile:
         path: "scripts/001.CREATE_TABLE_CANDIDATE.rollback.sql"
         relativeToChangelogFile: true
+  - changeSet:
+      id: ALTER_COLUMN_NUMBER_TO_NUMBER_ELECTION
+      author: tales.viegas
+      sqlFile:
+        path: "scripts/002.ALTER_COLUMN_NUMBER_TO_NUMBER_ELECTION.sql"
+        relativeToChangelogFile: true
