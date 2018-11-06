@@ -1,10 +1,5 @@
 package br.edu.ulbra.election.candidate.model;
 
-import br.edu.ulbra.election.candidate.output.v1.CandidateOutput;
-import br.edu.ulbra.election.candidate.output.v1.ElectionOutput;
-import br.edu.ulbra.election.candidate.output.v1.PartyOutput;
-import org.modelmapper.ModelMapper;
-
 import javax.persistence.*;
 
 @Entity
@@ -65,18 +60,5 @@ public class Candidate {
     public void setPartyId(Long partyId) {
         this.partyId = partyId;
     }
-
-    public static CandidateOutput toCandidateOutput(Candidate candidate){
-        ModelMapper modelMapper = new ModelMapper();
-        CandidateOutput candidateOutput = modelMapper.map(candidate, CandidateOutput.class);
-        ElectionOutput electionOutput = new ElectionOutput();
-        electionOutput.setId(candidate.getElectionId());
-        candidateOutput.setElectionOutput(electionOutput);
-        PartyOutput partyOutput = new PartyOutput();
-        partyOutput.setId(candidate.getElectionId());
-        candidateOutput.setPartyOutput(partyOutput);
-        return candidateOutput;
-    }
-
 
 }
