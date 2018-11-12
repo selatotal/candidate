@@ -63,7 +63,7 @@ public class CandidateService {
             throw new GenericOutputException(MESSAGE_CANDIDATE_NOT_FOUND);
         }
 
-        return modelMapper.map(candidate, CandidateOutput.class);
+        return toCandidateOutput(candidate);
     }
 
     public CandidateOutput update(Long candidateId, CandidateInput candidateInput) {
