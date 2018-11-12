@@ -21,16 +21,22 @@ public class CandidateApi {
         this.candidateService = candidateService;
     }
 
+    @GetMapping("/")
+    @ApiOperation(value = "Get candidates List")
+    public List<CandidateOutput> getAll(){
+        return candidateService.getAll();
+    }
+
     @GetMapping("/election/{electionId}")
     @ApiOperation(value = "Get candidates List by Election")
     public List<CandidateOutput> getByElection(@PathVariable Long electionId){
         return candidateService.getByElection(electionId);
     }
 
-    @GetMapping("/")
-    @ApiOperation(value = "Get candidates List")
-    public List<CandidateOutput> getAll(){
-        return candidateService.getAll();
+    @GetMapping("/party/{partyId}")
+    @ApiOperation(value = "Get candidates List by Party")
+    public List<CandidateOutput> getByParty(@PathVariable Long partyId){
+        return candidateService.getByParty(partyId);
     }
 
     @GetMapping("/{candidateId}")

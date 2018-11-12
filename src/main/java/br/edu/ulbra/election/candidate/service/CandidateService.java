@@ -5,10 +5,7 @@ import br.edu.ulbra.election.candidate.client.PartyClientService;
 import br.edu.ulbra.election.candidate.exception.GenericOutputException;
 import br.edu.ulbra.election.candidate.input.v1.CandidateInput;
 import br.edu.ulbra.election.candidate.model.Candidate;
-import br.edu.ulbra.election.candidate.output.v1.CandidateOutput;
-import br.edu.ulbra.election.candidate.output.v1.ElectionOutput;
-import br.edu.ulbra.election.candidate.output.v1.GenericOutput;
-import br.edu.ulbra.election.candidate.output.v1.PartyOutput;
+import br.edu.ulbra.election.candidate.output.v1.*;
 import br.edu.ulbra.election.candidate.repository.CandidateRepository;
 import feign.FeignException;
 import org.apache.commons.lang.StringUtils;
@@ -50,6 +47,11 @@ public class CandidateService {
         return candidateList.stream().map(this::toCandidateOutput).collect(Collectors.toList());
     }
 
+    public List<CandidateOutput> getByParty(Long partyId){
+        List<Candidate> candidateList = candidateRepository.findAllByPartyId(partyId);
+        return candidateList.stream().map(this::toCandidateOutput).collect(Collectors.toList());
+    }
+
     public CandidateOutput create(CandidateInput candidateInput) {
         validateInput(candidateInput);
         validateDuplicate(candidateInput, null);
@@ -83,6 +85,8 @@ public class CandidateService {
             throw new GenericOutputException(MESSAGE_CANDIDATE_NOT_FOUND);
         }
 
+        validateIntegrity(candidate.getElectionId());
+
         candidate.setElectionId(candidateInput.getElectionId());
         candidate.setNumberElection(candidateInput.getNumberElection());
         candidate.setName(candidateInput.getName());
@@ -101,6 +105,8 @@ public class CandidateService {
             throw new GenericOutputException(MESSAGE_CANDIDATE_NOT_FOUND);
         }
 
+        validateIntegrity(candidate.getElectionId());
+
         candidateRepository.delete(candidate);
 
         return new GenericOutput("Candidate deleted");
@@ -110,6 +116,17 @@ public class CandidateService {
         Candidate candidate = candidateRepository.findFirstByNumberElectionAndAndElectionId(candidateInput.getNumberElection(), candidateInput.getElectionId());
         if (candidate != null && candidate.getId() != candidateId){
             throw new GenericOutputException("Duplicate Candidate!");
+        }
+    }
+
+    private void validateIntegrity(Long electionId){
+        try {
+            ResultOutput resultOutput = electionClientService.getResultByElection(electionId);
+            if (resultOutput.getTotalVotes() > 0){
+                throw new GenericOutputException("Could not modify candidate in active elections");
+            }
+        } catch (FeignException e){
+            throw new GenericOutputException("Could not access Election Service");
         }
     }
 
