@@ -45,6 +45,11 @@ public class CandidateService {
         return candidateList.stream().map(this::toCandidateOutput).collect(Collectors.toList());
     }
 
+    public List<CandidateOutput> getByElection(Long electionId){
+        List<Candidate> candidateList = candidateRepository.findAllByElectionId(electionId);
+        return candidateList.stream().map(this::toCandidateOutput).collect(Collectors.toList());
+    }
+
     public CandidateOutput create(CandidateInput candidateInput) {
         validateInput(candidateInput);
         validateDuplicate(candidateInput, null);

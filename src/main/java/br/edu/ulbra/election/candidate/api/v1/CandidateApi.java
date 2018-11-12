@@ -21,6 +21,12 @@ public class CandidateApi {
         this.candidateService = candidateService;
     }
 
+    @GetMapping("/election/{electionId}")
+    @ApiOperation(value = "Get candidates List by Election")
+    public List<CandidateOutput> getByElection(@PathVariable Long electionId){
+        return candidateService.getByElection(electionId);
+    }
+
     @GetMapping("/")
     @ApiOperation(value = "Get candidates List")
     public List<CandidateOutput> getAll(){
