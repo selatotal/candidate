@@ -113,7 +113,7 @@ public class CandidateService {
     }
 
     private void validateDuplicate(CandidateInput candidateInput, Long candidateId){
-        Candidate candidate = candidateRepository.findFirstByNumberElectionAndAndElectionId(candidateInput.getNumberElection(), candidateInput.getElectionId());
+        Candidate candidate = candidateRepository.findFirstByNumberElectionAndElectionId(candidateInput.getNumberElection(), candidateInput.getElectionId());
         if (candidate != null && candidate.getId() != candidateId){
             throw new GenericOutputException("Duplicate Candidate!");
         }

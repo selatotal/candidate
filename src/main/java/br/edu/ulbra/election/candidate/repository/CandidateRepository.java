@@ -6,9 +6,10 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface CandidateRepository extends CrudRepository<Candidate, Long> {
-    Candidate findFirstByNumberElectionAndAndElectionId(Long numberElection, Long electionId);
+    Candidate findFirstByNumberElectionAndElectionId(Long numberElection, Long electionId);
 
     List<Candidate> findAllByElectionId(Long electionId);
 
     List<Candidate> findAllByPartyId(Long partyId);
+
 }

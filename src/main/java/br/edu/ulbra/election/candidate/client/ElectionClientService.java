@@ -33,7 +33,7 @@ public class ElectionClientService {
         ElectionOutput getById(@PathVariable(name = "electionId") Long electionId);
 
         @GetMapping("/v1/result/{electionId}")
-        ResultOutput getResultByElection(@PathVariable Long electionId);
+        ResultOutput getResultByElection(@PathVariable(name = "electionId") Long electionId);
 
     }
 }
