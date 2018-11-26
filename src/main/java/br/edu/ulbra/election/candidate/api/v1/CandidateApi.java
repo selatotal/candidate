@@ -62,4 +62,12 @@ public class CandidateApi {
     public GenericOutput delete(@PathVariable Long candidateId){
         return candidateService.delete(candidateId);
     }
+
+    @GetMapping("/getByNumberAndElection/{electionId}/{candidateNumber}")
+    @ApiOperation(value = "Get candidate by Election and Candidate Number")
+    public CandidateOutput getByNumberAndElection(@PathVariable(name = "electionId") Long electionId, @PathVariable(name = "candidateNumber") Long candidateNumber){
+        return candidateService.getByNumberAndElection(electionId, candidateNumber);
+    }
+
+
 }

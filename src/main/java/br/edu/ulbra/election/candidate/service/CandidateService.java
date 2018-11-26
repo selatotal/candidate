@@ -174,4 +174,15 @@ public class CandidateService {
     }
 
 
+    public CandidateOutput getByNumberAndElection(Long electionId, Long candidateNumber) {
+        if (electionId == null || candidateNumber == null){
+            throw new GenericOutputException("Invalid Input");
+        }
+        Candidate candidate = candidateRepository.findFirstByNumberElectionAndElectionId(candidateNumber, electionId);
+
+        if (candidate == null){
+            throw new GenericOutputException(MESSAGE_CANDIDATE_NOT_FOUND);
+        }
+        return toCandidateOutput(candidate);
+    }
 }
